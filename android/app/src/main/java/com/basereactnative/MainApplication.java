@@ -4,11 +4,12 @@ package com.basereactnative;
 import android.app.Activity;
 
 import com.facebook.react.ReactPackage;
-import com.facebook.react.shell.MainReactPackage;
+import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.reactnativenavigation.NavigationApplication;
 import com.smixx.fabric.FabricPackage;
+
 
 import java.util.Arrays;
 import java.util.List;
@@ -22,8 +23,11 @@ public class MainApplication extends NavigationApplication {
   protected List<ReactPackage> getPackages() {
     // Add additional packages you require here
     // No need to add RnnPackage and MainReactPackage
-    return Arrays.<ReactPackage>asList(new MainReactPackage(), new ReactNativeConfigPackage(), new VectorIconsPackage(),
-        new FabricPackage());
+    return Arrays.<ReactPackage>asList(
+            new ReactNativeConfigPackage(),
+            new VectorIconsPackage(),
+        new FabricPackage(),
+    new RNDeviceInfo());
   }
 
   public List<ReactPackage> createAdditionalReactPackages() {
