@@ -101,7 +101,7 @@ def enableProguardInReleaseBuilds = false
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.1"
+    buildToolsVersion "26.0.2"
 
     defaultConfig {
         applicationId "com.basereactnative"
@@ -112,7 +112,7 @@ android {
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
-       manifestPlaceholders = [ FABRIC_KEY:project.env.get("CRASHLYTICS_API_TOKEN") ]
+       manifestPlaceholders = [ FABRIC_KEY:'57d4d5b224aa82c5a82eb813078762ae42d25630' ]
     }
     signingConfigs {
         staging {

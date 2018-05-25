@@ -144,7 +144,7 @@ class App extends React.Component {
   loadInitial() {
     Promise.all([this.loadStore(), iconsLoaded])
       .then(() => {
-        this.startUp();
+        this.startApp();
       })
       .catch(err => console.log(err));
     // Promise.all([this.loadStore()])
