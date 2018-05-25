@@ -1,0 +1,33 @@
+{
+  "parser": "babel-eslint",
+  "extends": "airbnb",
+  "env": {
+    "browser": true
+  },
+  "plugins": ["react", "react-native"],
+  "globals": {
+    "describe": true,
+    "it": true,
+    "expect": true,
+    "fetch": true,
+    "navigator": true,
+    "__DEV__": true,
+    "XMLHttpRequest": true,
+    "FormData": true
+  },
+  "rules": {
+    "react-native/no-unused-styles": 2,
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "no-use-before-define": 0,
+    "react/forbid-prop-types": 0,
+    "react/require-default-props": 0,
+    "arrow-body-style": 0,
+    "import/prefer-default-export": 0,
+    "class-methods-use-this": 0,
+    "arrow-parens": 0,
+    "no-param-reassign": 0,
+    "function-paren-newline": 0,
+    "no-underscore-dangle": 0,
+    "max-len": [2, {"code": 200, "tabWidth": 4, "ignoreUrls": true}]
+  }
+}

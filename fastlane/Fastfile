@@ -1,0 +1,155 @@
+# Customize this file, documentation can be found here:
+# https://docs.fastlane.tools/actions/
+# All available actions: https://docs.fastlane.tools/actions
+# can also be listed using the `fastlane actions` command
+
+# Change the syntax highlighting to Ruby
+# All lines starting with a # are ignored when running `fastlane`
+
+# If you want to automatically update fastlane if a new version is available:
+# update_fastlane
+
+# This is the minimum version number required.
+# Update this, if you use features of a newer version
+fastlane_version "2.64.0"
+
+default_platform :ios
+
+platform :ios do
+  before_all do
+    # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
+    cocoapods(
+      podfile: "./ios/Podfile",
+      verbose: true, try_repo_update_on_error: true
+    )
+    # carthage
+  end
+
+  desc "Runs all the tests"
+  lane :test do
+    scan
+  end
+
+  desc "Submit a new Beta Build to Apple TestFlight"
+  desc "This will also make sure the profile is up to date"
+  lane :beta do
+    sigh(
+      development: true,
+      skip_certificate_verification: true
+    )
+    increment_build_number(
+      xcodeproj: './ios/WifiPremium.xcodeproj',
+      build_number: number_of_commits
+    ) # Increment the build number
+    gym(
+      scheme: 'Staging',
+      export_method: 'development',
+      workspace: './ios/WifiPremium.xcworkspace',
+      configuration: 'Staging'
+    )
+
+    # sh "your_script.sh"
+    # You can also use other beta testing services here (run `fastlane actions`)
+  end
+
+  desc "Deploy a new version to the App Store"
+  lane :release do
+    # match(type: "appstore")
+    # snapshot
+    sigh(
+      development: false,
+      skip_certificate_verification: true
+    )
+    increment_build_number(
+      xcodeproj: './ios/WifiPremium.xcodeproj',
+      build_number: number_of_commits
+    ) # Increment the build number
+    gym(
+      scheme: 'Release',
+      project: './ios/WifiPremium.xcodeproj',
+      configuration: 'Release'
+    ) # Build your app - more options available
+    crashlytics(
+      ipa_path: "./WifiPremium.ipa"
+      # notes: git_branch + ' '+ commit[:author] + ' '+ commit[:message],
+      # groups: ['internal+'],
+      # emails: [''],
+      # api_token: ENV['CRASHLYTICS_API_TOKEN'],
+      # build_secret: ENV['CRASHLYTICS_BUILD_SECRET']
+    )
+    pilot
+    # frameit
+  end
+
+  # You can define as many lanes as you want
+
+  after_all do |lane|
+    # This block is called, only if the executed lane was successful
+
+    # slack(
+    #   message: "Successfully deployed new App Update."
+    # )
+  end
+
+  error do |lane, exception|
+    # slack(
+    #   message: exception.message,
+    #   success: false
+    # )
+  end
+end
+
+
+platform :android do
+  before_all do
+    # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
+  end
+
+  desc "Runs all the tests"
+  lane :test do
+    gradle(task: "test")
+  end
+
+  desc "Submit a new Beta Build to Crashlytics Beta"
+  lane :beta do
+    gradle(
+      task: "assemble",
+      build_type: "ReleaseStaging",
+      project_dir: "android/"
+    )
+
+    # sh "your_script.sh"
+    # You can also use other beta testing services here
+  end
+
+  desc "Deploy a new version to the Google Play"
+  lane :release do
+    gradle(
+      task: "assemble",
+      build_type: "Release",
+      project_dir: "android/"
+    ) # Build the Release APK
+  end
+
+  # You can define as many lanes as you want
+
+  after_all do |lane|
+    # This block is called, only if the executed lane was successful
+
+    # slack(
+    #   message: "Successfully deployed new App Update."
+    # )
+  end
+
+  error do |lane, exception|
+    # slack(
+    #   message: exception.message,
+    #   success: false
+    # )
+  end
+end
+# More information about multiple platforms in fastlane: https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Platforms.md
+# All available actions: https://docs.fastlane.tools/actions
+
+# fastlane reports which actions are used. No personal data is recorded.
+# Learn more at https://docs.fastlane.tools/#metrics

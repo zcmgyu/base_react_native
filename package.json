@@ -1,0 +1,71 @@
+{
+  "name": "BaseReactNative",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "build:ios": "react-native bundle --entry-file='index.ios.js' --bundle-output='./ios/BaseReactNative/main.jsbundle' --dev=false --platform='ios' --assets-dest='./ios'",
+    "test": "jest",
+    "newclear": "rm -rf $TMPDIR/react-* && watchman watch-del-all && rm -rf ios/build/ModuleCache/* && rm -rf node_modules/ && rm -rf ~/.rncache && yarn install && cd android && ./gradlew clean && yarn run fix-xcode",
+    "createIconFont": "./node_modules/.bin/generate-icon ./assets/fonts/style.css --componentName=icomoon --fontFamily=icomoon > ./node_modules/react-native-vector-icons/icomoon.js && cp ./assets/fonts/icomoon.ttf ./node_modules/react-native-vector-icons/Fonts/icomoon.ttf",
+    "fix-xcode": "react-native-schemes-manager all",
+    "postinstall": "react-native-schemes-manager all",
+    "resoleVectorIconProblem": "rm ./node_modules/react-native/local-cli/core/__fixtures__/files/package.json"
+  },
+  "xcodeSchemes": {
+    "Debug": [
+      "Debug"
+    ],
+    "Release": [
+      "Staging",
+      "Release"
+    ],
+    "projectDirectory": "iOS"
+  },
+  "dependencies": {
+    "lodash": "^4.17.4",
+    "moment": "^2.19.1",
+    "prop-types": "^15.5.10",
+    "react": "^16.3.2",
+    "react-native": "^0.51.0",
+    "react-native-animatable": "^1.2.4",
+    "react-native-config": "^0.11.1",
+    "react-native-device-info": "^0.21.5",
+    "react-native-dismiss-keyboard": "^1.0.0",
+    "react-native-fabric": "^0.5.1",
+    "react-native-image-picker": "^0.26.7",
+    "react-native-keyboard-aware-scroll-view": "^0.4.1",
+    "react-native-navigation": "^1.1.463",
+    "react-native-tesseract-ocr": "^1.0.10",
+    "react-native-vector-icons": "^4.5.0",
+    "react-redux": "5.0.6",
+    "redux": "3.7.2",
+    "redux-persist": "^4.1.0",
+    "redux-saga": "^0.16.0",
+    "reselect": "^3.0.0",
+    "seamless-immutable": "^7.0.1",
+    "tesseract.js": "^1.0.10"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.1.1",
+    "babel-jest": "21.2.0",
+    "babel-preset-react-native": "4.0.0",
+    "enzyme": "^3.1.0",
+    "eslint": "^4.9.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-babel": "^4.1.1",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-react": "^7.4.0",
+    "eslint-plugin-react-native": "^3.1.0",
+    "jest": "21.2.1",
+    "react-addons-test-utils": "^15.4.2",
+    "react-dom": "^16.0.0",
+    "react-native-schemes-manager": "^1.0.4",
+    "react-test-renderer": "^15.4.2",
+    "redux-logger": "^3.0.6"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}
