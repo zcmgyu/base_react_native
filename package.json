@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "build:ios": "react-native bundle --entry-file='index.ios.js' --bundle-output='./ios/BaseReactNative/main.jsbundle' --dev=false --platform='ios' --assets-dest='./ios'",
+    "build:ios": "react-native run-ios --configuration Release",
+    "build:android": "cd android && ./gradlew assembleRelease",
+    "bundle:ios": "react-native bundle --entry-file='index.ios.js' --bundle-output='./ios/BaseReactNative/main.jsbundle' --dev=false --platform='ios' --assets-dest='./ios'",
     "test": "jest",
     "newclear": "rm -rf $TMPDIR/react-* && watchman watch-del-all && rm -rf ios/build/ModuleCache/* && rm -rf node_modules/ && rm -rf ~/.rncache && yarn install && cd android && ./gradlew clean && yarn run fix-xcode",
     "createIconFont": "./node_modules/.bin/generate-icon ./assets/fonts/style.css --componentName=icomoon --fontFamily=icomoon > ./node_modules/react-native-vector-icons/icomoon.js && cp ./assets/fonts/icomoon.ttf ./node_modules/react-native-vector-icons/Fonts/icomoon.ttf",

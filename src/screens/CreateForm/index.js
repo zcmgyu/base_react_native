@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 
 class CreateForm extends Component {
   static navigatorStyle = {};
@@ -10,13 +10,24 @@ class CreateForm extends Component {
   }
 
   render() {
-    return <View style={styles.container} />;
+    return (
+      <View style={styles.container}>
+        <Text style={styles.title}>Create something</Text>
+      </View>
+    );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    margin: 30,
+  },
+  title: {
+    textAlign: 'center',
+    marginTop: 10,
+    fontWeight: 'bold',
+    fontSize: 16,
   },
 });
 
@@ -27,7 +38,6 @@ const styles = StyleSheet.create({
 // const mapDispatchToProps = dispatch => {
 //   return {};
 // };
-
 
 // export default connect(mapStateToProps, mapDispatchToProps)(CreateForm);
 export default CreateForm;

@@ -4,15 +4,16 @@
   // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
   "configurations": [
-    
     {
-      "name": "Debug iOS",
-      "program": "${workspaceRoot}/.vscode/launchReactNative.js",
-      "type": "reactnative",
+      "type": "node",
       "request": "launch",
-      "platform": "ios",
-      "sourceMaps": true,
-      "outDir": "${workspaceRoot}/.vscode/.react"
+      "name": "Jest Tests",
+      "program": "${workspaceRoot}\\node_modules\\jest\\bin\\jest.js",
+      "args": ["-i"],
+      "preLaunchTask": "build",
+      "internalConsoleOptions": "openOnSessionStart",
+      "outFiles": ["${workspaceRoot}/dist/**/*"],
+      "envFile": "${workspaceRoot}/.env"
     }
   ]
 }

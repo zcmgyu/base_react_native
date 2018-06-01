@@ -84,7 +84,6 @@ export function startHomeContent() {
         title: 'ニュース',
         screen: 'app.News',
         icon: iconsMap['ios-home'],
-        // selectedIcon: require('../img/one_selected.png'),
         iconInsets,
         navigatorStyle: {},
         navigatorButtons: {},

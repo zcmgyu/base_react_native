@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 
 import { Colors } from '../../themes';
 import { NEWS_DATA } from '../../dummyData';
+import { shuffle } from '../../utils/arrayUtils';
 import NewsItem from './NewsItem';
 import actions from '../../redux/NewsRedux/actions';
 
@@ -19,25 +20,25 @@ class News extends Component {
   onPressItem = item => {
     this.props.setCurrentNews(item);
     this.props.navigator.push({
-      screen: 'app.NewsDetail',
+      screen: 'app.NewsDetail', // unique ID registered with Navigation.registerScreen
+      title: 'Detail', // navigation bar title of the pushed screen (optional)
+      subtitle: undefined, // navigation bar subtitle of the pushed screen (optional)
+      passProps: { item }, // Object that will be passed as props to the pushed screen (optional)
+      animated: true, // does the push have transition animation or does it happen immediately (optional)
+      animationType: 'fade', // 'fade' (for both) / 'slide-horizontal' (for android) does the push have different transition animation (optional)
     });
   };
 
   render() {
     const { data } = this.props;
+    console.log('data', data);
     return (
       <FlatList
         style={styles.list}
         data={data}
         ItemSeparatorComponent={() => <View style={styles.vSeparator} />}
         keyExtractor={item => item.id.toString()}
-        renderItem={({ item, index }) => (
-          <NewsItem
-            item={item}
-            index={index}
-            onPressItem={() => this.onPressItem(item)}
-          />
-        )}
+        renderItem={({ item, index }) => <NewsItem item={item} index={index} onPressItem={() => this.onPressItem(item)} />}
       />
     );
   }
@@ -50,7 +51,7 @@ News.propTypes = {
 };
 
 News.defaultProps = {
-  data: NEWS_DATA,
+  data: shuffle(NEWS_DATA),
 };
 
 const styles = StyleSheet.create({

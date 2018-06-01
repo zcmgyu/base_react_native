@@ -21,7 +21,11 @@ export default class Splash extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <View
+        style={styles.container}
+        testID="screen_key_2508"
+        accessibilityLabel="screen_key_2508"
+      >
         <InputRow
           ref={this.regularPrice}
           returnKeyType="next"
@@ -35,6 +39,8 @@ export default class Splash extends Component {
           placeholderTextColor={Colors.grey}
           placeholder="入力してください。"
           onSubmitEditing={() => {}}
+          testID="input_key_2508"
+          accessibilityLabel="input_key_2508"
         />
         <Button
           onPress={() => {
@@ -78,7 +84,7 @@ const styles = StyleSheet.create({
     borderRadius: 20.5,
     borderStyle: 'solid',
     borderWidth: 0.5,
-    borderColor: Colors.divider,
+    borderColor: Colors.semiDarkGrey,
     backgroundColor: Colors.primaryText,
     marginTop: 20,
   },
